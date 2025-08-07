@@ -139,6 +139,7 @@ button {
     margin: 0;
 }
 .overlay button{
+    background-color: #000000;
     align-self: flex-end;
 }
 /* SECTION CATEGORIE AUTRE */
@@ -149,3 +150,7 @@ button {
     flex-wrap: wrap;         
     margin-bottom: 16px;     
 }
+/*
+importation ulterieure pour modal window
+@import url(modal_style.css);
+*/
