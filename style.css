@@ -86,35 +86,47 @@ button {
     align-self: flex-end;
 }
 
-/* SECTION CATÉGORIE 1 */
+/* SECTION CATÉGORIE */
 .carousel {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-gap: 32px;
+    grid-auto-flow: row;
 
 }
 .card-movie {
     width: 252px;
     height: 247px;
+    position: relative;
 }
 .card-movie img{
-    width: 100%;            
-    height: auto;    
-    border: 2px solid #000; 
+    width: 100%;
+    height: 100%;
     object-fit: cover;      /* coupe l'image si nécessaire */
     display: block;
-    position: relative;
+    
 }
 /* TODO: regler overlay et card-movie */
 .overlay {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.6); /* opacité */
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 32px;
+    height: 102px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5); /* opacité */
+    color: white;
+    font-weight: 600;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+}
+.movie p{
+    align-self: flex-start;      
+    margin: 0;
+}
+.overlay button{
+    align-self: flex-end;
 }
