@@ -16,6 +16,14 @@ p {
     font-size: 28px;
     font-weight: 200;
 }
+select {
+    border: #000000 1px solid;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 36px;
+    width: 404px;
+    height: 79px;
+}
 .logo {
     padding: 0px 16px 0px 16px;
     background: #61787F;
@@ -89,14 +97,12 @@ button {
 /* SECTION CATÉGORIE */
 .carousel {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, 252px);   /* si max 3 par ligne rempl: auto-fit par 3 */
     grid-template-rows: 1fr 1fr;
     grid-gap: 32px;
-    grid-auto-flow: row;
-
+    justify-content: space-between;
 }
 .card-movie {
-    width: 252px;
     height: 247px;
     position: relative;
 }
@@ -107,7 +113,6 @@ button {
     display: block;
     
 }
-/* TODO: regler overlay et card-movie */
 .overlay {
     box-sizing: border-box;
     position: absolute;
@@ -129,4 +134,12 @@ button {
 }
 .overlay button{
     align-self: flex-end;
+}
+/* SECTION CATEGORIE AUTRE */
+.header-category {
+    display: flex;
+    align-items: center;     /* verticalement centré */
+    gap: 16px;               /* espace entre h2 et select */
+    flex-wrap: wrap;         /* pour passer à la ligne sur petits écrans */
+    margin-bottom: 16px;     /* espacement avec le carousel */
 }
