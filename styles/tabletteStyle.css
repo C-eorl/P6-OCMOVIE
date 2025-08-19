@@ -1,16 +1,13 @@
 /* ==================== 788px ==================== */
 @media (max-width: 788px) {
     body {
-        grid-template-columns: 1fr 1fr 1fr;
-        padding-top: 16px;
-    }
-
-    header, main {
-        grid-column: 1 / 4;
+        grid-template-columns: 1fr;
+        margin: 16px;
     }
 
     h2 {
         font-size: 32px;
+        text-align: center;
     }
 
     p {
@@ -19,44 +16,65 @@
 
     select {
         width: 100%;
-        font-size: 28px;
-        height: 60px;
+        font-size: 24px;
+        height: 50px;
     }
 
-    /* ==================== Carousels ==================== */
-    .category .carousel {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto auto;
-        grid-gap: 16px;
-    }
-
-    .card-movie {
-        height: 220px;
-    }
-
+    /* Section Meilleur film */
     .best-movie {
         flex-direction: column;
         align-items: center;
+        text-align: center;
     }
 
     .best-movie img {
-        width: 200px;
-        height: 300px;
-        margin-bottom: 16px;
+        width: 298px;
+        height: 241px;
+        object-fit: cover;
     }
 
-    /* ==================== Bouton Voir plus ==================== */
+    .best-movie .details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 16px;
+    }
+
+    .best-movie button {
+        margin-top: 16px;
+        width: 91px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    /* Sections Autres / Carousels */
+    .category .carousel {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 films par ligne */
+        grid-auto-rows: auto;
+        gap: 16px;
+        max-height: calc(2 * 319px + 16px); /* 2 lignes + gap */
+        overflow: hidden;
+    }
+
+    .card-movie {
+        width: 329px;
+        height: 319px;
+    }
+
+    /* Bouton Voir plus */
     .category .voir-plus {
         display: block;
         margin: 16px auto;
-        width: 200px;
-        padding: 8px;
-        text-align: center;
-        font-size: 16px;
+        width: 214px;
+        height: 36px;
+        font-size: 20px;
+        font-weight: 500;
         border-radius: 25px;
         background-color: #fa0b0b;
         color: #fff;
-        cursor: pointer;
         border: none;
+        cursor: pointer;
+        text-align: center;
     }
 }
