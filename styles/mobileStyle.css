@@ -67,18 +67,19 @@
     }
 
     /* ==================== Autres sections ==================== */
-    .category .carousel {
+     .category .carousel {
         display: grid;
-        grid-template-columns: 1fr; 
+        grid-template-columns: repeat(1, 1fr); /* 1 film par ligne */
+        grid-auto-rows: auto;
         gap: 16px;
-        overflow: hidden; /* cache les autres cartes si besoin */
+        max-height: calc(2 * 319px + 16px); /* 2 lignes visibles par défaut */
+        overflow: hidden;
     }
 
     .card-movie {
-        width: 100%;
+        width: 329px;
         height: 319px;
     }
-
     /* ==================== Bouton Voir plus ==================== */
     .category .voir-plus {
         display: block;
