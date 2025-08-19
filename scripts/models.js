@@ -64,14 +64,15 @@ export class Section {
         this.movies = movies;       // Liste d'objets Movie
         this.categories = categories; // Liste de {id, name} ou null
     }
+
     /** Construit la section puis la retourne */
     constructorDOM() {
         const section = document.createElement("section");
         section.id = this.id;
         section.className = this.className;
 
+        // Header
         if (this.categories && this.categories.length > 0) {
-            // Cas avec <select>
             const header = document.createElement("div");
             header.className = "header-category";
 
@@ -85,39 +86,82 @@ export class Section {
                 select.appendChild(option);
             });
 
-            // --- LOGIQUE DU SELECT ---
             select.addEventListener("change", async (e) => {
                 const categoryName = e.target.value;
-                console.log("Catégorie sélectionnée :", categoryName);
-
                 const url = `http://127.0.0.1:8000/api/v1/titles/?genre=${categoryName}&sort_by=-imdb_score&page_size=6`;
                 const newMovies = await createMovies(url);
 
-                // ⚡️ Mettre à jour le carousel avec les nouveaux films
-                section.querySelector(".carousel").replaceWith(
-                    new Carousel(newMovies.length, newMovies).constructorDOM()
-                );
+                // Mettre à jour le carousel existant
+                const carouselDiv = section.querySelector(".carousel");
+                carouselDiv.replaceWith(new Carousel(newMovies.length, newMovies).constructorDOM());
             });
 
-            header.appendChild(h2);
-            header.appendChild(select);
+            header.append(h2, select);
             section.appendChild(header);
         } else {
-            // Cas sans <select>
             const h2 = document.createElement("h2");
             h2.textContent = this.title;
             section.appendChild(h2);
         }
 
-        // Ajout du carousel initial
-        const carousel = new Carousel(this.movies.length, this.movies);
-        const carouselDOM = carousel.constructorDOM();
-        carouselDOM.classList.add("carousel"); // utile pour le remplacer plus tard
+        // Carousel initial
+        const carouselDOM = new Carousel(this.movies.length, this.movies).constructorDOM();
+        carouselDOM.classList.add("carousel");
         section.appendChild(carouselDOM);
+
+        // Définir la limite de cartes visibles par défaut selon la largeur
+        this._setInitialCarouselStyle(carouselDOM);
+
+        // Bouton Voir plus / Voir moins
+        const voirPlusBtn = document.createElement("button");
+        voirPlusBtn.textContent = "Voir plus";
+        voirPlusBtn.className = "voir-plus";
+        let expanded = false;
+
+        voirPlusBtn.addEventListener("click", () => {
+            if (!expanded) {
+                // Déplier le carousel
+                carouselDOM.style.maxHeight = "none";
+                voirPlusBtn.textContent = "Voir moins";
+                expanded = true;
+            } else {
+                // Replier selon la largeur de l'écran
+                this._setInitialCarouselStyle(carouselDOM);
+                voirPlusBtn.textContent = "Voir plus";
+                expanded = false;
+            }
+        });
+
+        section.appendChild(voirPlusBtn);
+
+        // Réajuster automatiquement si la fenêtre est redimensionnée
+        window.addEventListener("resize", () => {
+            if (!expanded) this._setInitialCarouselStyle(carouselDOM);
+        });
 
         return section;
     }
+
+    /** Définit la vue initiale du carousel selon la largeur */
+    _setInitialCarouselStyle(carouselDOM) {
+        const width = window.innerWidth;
+
+        if (width <= 456) {
+            carouselDOM.style.gridTemplateColumns = "repeat(1, 1fr)";
+            carouselDOM.style.maxHeight = "calc(2 * 319px + 16px)"; // 2 films + gap
+            carouselDOM.style.overflow = "hidden";
+        } else if (width <= 788) {
+            carouselDOM.style.gridTemplateColumns = "repeat(2, 1fr)";
+            carouselDOM.style.maxHeight = "calc(2 * 319px + 16px)";
+            carouselDOM.style.overflow = "hidden";
+        } else {
+            carouselDOM.style.gridTemplateColumns = "repeat(auto-fit, 252px)";
+            carouselDOM.style.maxHeight = "none";
+            carouselDOM.style.overflow = "visible";
+        }
+    }
 }
+
 
 /** Objet Carousel parametre :(nbCardMovies: 6 || Int, movies: [] || List(Class: Movie))*/
 export class Carousel {
