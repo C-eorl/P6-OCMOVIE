@@ -74,6 +74,9 @@ button {
     padding: 2px 4px;
     gap: 10px;
 }
+.voir-plus {
+    display: none;
+}
 /* SECTION MEILLEUR FILM */
 .movie {
     border: 6px solid;
@@ -125,7 +128,6 @@ button {
     left: 0;
     right: 0;
     top: 32px;
-    height: 102px;
     padding: 20px;
     background: rgba(0, 0, 0, 0.5); 
     color: white;
@@ -133,6 +135,7 @@ button {
     font-size: 24px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 .movie p{
     align-self: flex-start;      
