@@ -65,6 +65,21 @@ export class Section {
         this.categories = categories; // Liste de {id, name} ou null
     }
 
+    /** Définit la hauteur maximale du carousel selon la largeur */
+    _setInitialCarouselStyle(carouselDiv) {
+        if (window.innerWidth <= 456) {
+            carouselDiv.style.gridTemplateColumns = "repeat(1, 1fr)";
+            carouselDiv.style.maxHeight = "calc(2 * 319px + 16px)";
+        } else if (window.innerWidth <= 788) {
+            carouselDiv.style.gridTemplateColumns = "repeat(2, 1fr)";
+            carouselDiv.style.maxHeight = "calc(2 * 319px + 16px)";
+        } else {
+            carouselDiv.style.gridTemplateColumns = "repeat(auto-fit, 252px)";
+            carouselDiv.style.maxHeight = "none";
+        }
+        carouselDiv.style.overflow = "hidden";
+    }
+
     /** Construit la section puis la retourne */
     constructorDOM() {
         const section = document.createElement("section");
@@ -86,16 +101,6 @@ export class Section {
                 select.appendChild(option);
             });
 
-            select.addEventListener("change", async (e) => {
-                const categoryName = e.target.value;
-                const url = `http://127.0.0.1:8000/api/v1/titles/?genre=${categoryName}&sort_by=-imdb_score&page_size=6`;
-                const newMovies = await createMovies(url);
-
-                // Mettre à jour le carousel existant
-                const carouselDiv = section.querySelector(".carousel");
-                carouselDiv.replaceWith(new Carousel(newMovies.length, newMovies).constructorDOM());
-            });
-
             header.append(h2, select);
             section.appendChild(header);
         } else {
@@ -109,7 +114,7 @@ export class Section {
         carouselDOM.classList.add("carousel");
         section.appendChild(carouselDOM);
 
-        // Définir la limite de cartes visibles par défaut selon la largeur
+        // Définir la hauteur initiale selon largeur
         this._setInitialCarouselStyle(carouselDOM);
 
         // Bouton Voir plus / Voir moins
@@ -120,13 +125,11 @@ export class Section {
 
         voirPlusBtn.addEventListener("click", () => {
             if (!expanded) {
-                // Déplier le carousel
-                carouselDOM.style.maxHeight = "none";
+                carouselDOM.style.maxHeight = "none"; // tout afficher
                 voirPlusBtn.textContent = "Voir moins";
                 expanded = true;
             } else {
-                // Replier selon la largeur de l'écran
-                this._setInitialCarouselStyle(carouselDOM);
+                this._setInitialCarouselStyle(carouselDOM); // revenir à la vue responsive
                 voirPlusBtn.textContent = "Voir plus";
                 expanded = false;
             }
@@ -134,31 +137,32 @@ export class Section {
 
         section.appendChild(voirPlusBtn);
 
+        // Mettre à jour le carousel si le select change (si présent)
+        if (this.categories && this.categories.length > 0) {
+            const select = section.querySelector("select");
+            select.addEventListener("change", async (e) => {
+                const categoryName = e.target.value;
+                const url = `http://127.0.0.1:8000/api/v1/titles/?genre=${categoryName}&sort_by=-imdb_score&page_size=6`;
+                const newMovies = await createMovies(url);
+
+                // Mettre à jour le carousel existant sans remplacer le DOM
+                carouselDOM.innerHTML = "";
+                newMovies.forEach(movie => {
+                    const card = new CardMovie(movie);
+                    carouselDOM.appendChild(card.constructorDOM());
+                });
+
+                // Réappliquer la hauteur initiale si non développé
+                if (!expanded) this._setInitialCarouselStyle(carouselDOM);
+            });
+        }
+
         // Réajuster automatiquement si la fenêtre est redimensionnée
         window.addEventListener("resize", () => {
             if (!expanded) this._setInitialCarouselStyle(carouselDOM);
         });
 
         return section;
-    }
-
-    /** Définit la vue initiale du carousel selon la largeur */
-    _setInitialCarouselStyle(carouselDOM) {
-        const width = window.innerWidth;
-
-        if (width <= 456) {
-            carouselDOM.style.gridTemplateColumns = "repeat(1, 1fr)";
-            carouselDOM.style.maxHeight = "calc(2 * 319px + 16px)"; // 2 films + gap
-            carouselDOM.style.overflow = "hidden";
-        } else if (width <= 788) {
-            carouselDOM.style.gridTemplateColumns = "repeat(2, 1fr)";
-            carouselDOM.style.maxHeight = "calc(2 * 319px + 16px)";
-            carouselDOM.style.overflow = "hidden";
-        } else {
-            carouselDOM.style.gridTemplateColumns = "repeat(auto-fit, 252px)";
-            carouselDOM.style.maxHeight = "none";
-            carouselDOM.style.overflow = "visible";
-        }
     }
 }
 
