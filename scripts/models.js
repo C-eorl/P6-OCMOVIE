@@ -65,21 +65,6 @@ export class Section {
         this.categories = categories; // Liste de {id, name} ou null
     }
 
-    /** Définit la hauteur maximale du carousel selon la largeur */
-    _setInitialCarouselStyle(carouselDiv) {
-        if (window.innerWidth <= 456) {
-            carouselDiv.style.gridTemplateColumns = "repeat(1, 1fr)";
-            carouselDiv.style.maxHeight = "calc(2 * 319px + 16px)";
-        } else if (window.innerWidth <= 788) {
-            carouselDiv.style.gridTemplateColumns = "repeat(2, 1fr)";
-            carouselDiv.style.maxHeight = "calc(2 * 319px + 16px)";
-        } else {
-            carouselDiv.style.gridTemplateColumns = "repeat(auto-fit, 252px)";
-            carouselDiv.style.maxHeight = "none";
-        }
-        carouselDiv.style.overflow = "hidden";
-    }
-
     /** Construit la section puis la retourne */
     constructorDOM() {
         const section = document.createElement("section");
@@ -114,9 +99,6 @@ export class Section {
         carouselDOM.classList.add("carousel");
         section.appendChild(carouselDOM);
 
-        // Définir la hauteur initiale selon largeur
-        this._setInitialCarouselStyle(carouselDOM);
-
         // Bouton Voir plus / Voir moins
         const voirPlusBtn = document.createElement("button");
         voirPlusBtn.textContent = "Voir plus";
@@ -129,7 +111,7 @@ export class Section {
                 voirPlusBtn.textContent = "Voir moins";
                 expanded = true;
             } else {
-                this._setInitialCarouselStyle(carouselDOM); // revenir à la vue responsive
+                carouselDOM.style.maxHeight = ""; // remet la valeur CSS par défaut
                 voirPlusBtn.textContent = "Voir plus";
                 expanded = false;
             }
@@ -151,20 +133,13 @@ export class Section {
                     const card = new CardMovie(movie);
                     carouselDOM.appendChild(card.constructorDOM());
                 });
-
-                // Réappliquer la hauteur initiale si non développé
-                if (!expanded) this._setInitialCarouselStyle(carouselDOM);
             });
         }
-
-        // Réajuster automatiquement si la fenêtre est redimensionnée
-        window.addEventListener("resize", () => {
-            if (!expanded) this._setInitialCarouselStyle(carouselDOM);
-        });
 
         return section;
     }
 }
+
 
 
 /** Objet Carousel parametre :(nbCardMovies: 6 || Int, movies: [] || List(Class: Movie))*/
