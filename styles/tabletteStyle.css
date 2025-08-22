@@ -6,8 +6,7 @@
     }
 
     h2 {
-        font-size: 32px;
-        text-align: center;
+        font-size: 40px;
     }
 
     p {
@@ -15,39 +14,44 @@
     }
 
     select {
-        width: 100%;
-        font-size: 24px;
-        height: 50px;
+        font-weight: 600;
+        width: 50%;
+        font-size: 36px;
+        height: 78px;
     }
 
     /* Section Meilleur film */
     .best-movie {
         flex-direction: column;
         align-items: center;
-        text-align: center;
     }
-
+    .movie {
+        padding: 8px 16px;;
+    }
     .best-movie img {
-        width: 298px;
-        height: 241px;
+        width: 168px;
+        height: 246px;
         object-fit: cover;
     }
 
     .best-movie .details {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin-top: 16px;
     }
 
     .best-movie button {
-        margin-top: 16px;
+        margin-top: auto;
+        align-self: flex-end;
         width: 91px;
         height: 40px;
         font-size: 14px;
     }
 
     /* Sections Autres / Carousels */
+    .header-category {
+        display: flex;
+        flex-wrap: wrap; 
+    }
     .category .carousel {
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* 2 films par ligne */
@@ -65,7 +69,7 @@
     /* Bouton Voir plus */
     .category .voir-plus {
         display: block;
-        margin: 16px auto;
+        margin: 30px auto;
         width: 214px;
         height: 36px;
         font-size: 20px;
@@ -76,5 +80,26 @@
         border: none;
         cursor: pointer;
         text-align: center;
+    }
+
+    /* Modal **/
+    .modal-windows {
+
+        max-width: 75%;
+        width: 75%;
+        max-height: 90%;
+        z-index: 1000; 
+        font-family: 'Oswald', sans-serif;
+        display: flex;
+        flex-direction: column;
+        padding: 25px;
+    }
+    .modal-window img {
+        justify-content: center;
+        width: 409px;
+    }
+    .btn-closecross{
+        
+        all: unset;
     }
 }
