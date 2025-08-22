@@ -1,5 +1,6 @@
 body {
     padding-top: 32px;
+    padding-bottom: 32px;
     font-family: 'Oswald', sans-serif;
     display: grid;
     grid-template-columns: 1fr 10fr 1fr;
@@ -106,13 +107,14 @@ button {
 /* SECTION CATÉGORIE */
 .carousel {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 252px);   /* si max 3 par ligne rempl: auto-fit par 3 */
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);   
+    grid-template-rows: auto;
     grid-gap: 32px;
-    justify-content: space-between;
+    justify-content: start;
 }
 .card-movie {
     height: 247px;
+    width: 100%;
     position: relative;
 }
 .card-movie img{
