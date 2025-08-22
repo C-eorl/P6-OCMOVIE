@@ -87,9 +87,12 @@
         height: 319px;
     }
     .header-category {
+        display: flex;
         gap: 0;
     }
     .header-category h2 {
+        width: 100%;
+        justify-content: center;
         margin-top: 16px;
     }
     /* ==================== Bouton Voir plus ==================== */
