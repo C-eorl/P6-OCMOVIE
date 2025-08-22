@@ -233,6 +233,7 @@ export class Modal {
     async open() {
         const movie = await this.getdata();
 
+        document.body.classList.add("no-scroll");
         // Création de l'overlay
         this.overlay = document.createElement("div");
         this.overlay.className = "modal-overlay";
@@ -268,43 +269,59 @@ export class Modal {
         const realisateurP = document.createElement("p");
         realisateurP.textContent = movie.directors || "";
 
-        info.append(title, dateGenre, imdbScore, boxOffice, realisateurH3, realisateurP);
-
         const img = document.createElement("img");
         img.src = movie.image_url || "https://placehold.co/300?text=No+Image";
         img.alt = movie.title;
 
-        header.append(info, img);
-        this.modal.appendChild(header);
-
         // Description
         const descP = document.createElement("p");
         descP.textContent = movie.description || "Aucune description disponible.";
-        this.modal.appendChild(descP);
 
         // Acteurs
+        let acteursH4;
+        let acteursP;
         if (movie.actors) {
-            const acteursH4 = document.createElement("h4");
+            acteursH4 = document.createElement("h4");
             acteursH4.textContent = "Avec:";
-            const acteursP = document.createElement("p");
+            acteursP = document.createElement("p");
             acteursP.textContent = movie.actors.join(", ");
-            this.modal.append(acteursH4, acteursP);
         }
 
-        // Bouton fermer
-        const closeBtn = document.createElement("button");
-        closeBtn.textContent = "Fermer";
-        closeBtn.addEventListener("click", () => this.close());
-        this.modal.appendChild(closeBtn);
+        const btnCloseCross = document.createElement("img")
+        btnCloseCross.classList.add("btn-closecross");
+        btnCloseCross.src = "img/closecross.svg";   
+        btnCloseCross.alt = "Fermer"
+
+       
+            
+        if (window.innerWidth <= 910) {
+            info.append(title,dateGenre,imdbScore, boxOffice, realisateurH3, realisateurP)
+            header.append(info, btnCloseCross)
+            btnCloseCross.addEventListener("click", () => this.close());
+            this.modal.appendChild(header)
+            this.modal.appendChild(descP)
+            this.modal.appendChild(img)
+            this.modal.append(acteursH4, acteursP)
+        } else {
+            info.append(title, dateGenre, imdbScore, boxOffice, realisateurH3, realisateurP);
+            header.append(info, img);
+            this.modal.appendChild(header);
+            this.modal.appendChild(descP);
+            this.modal.append(acteursH4, acteursP);
+            const closeBtn = document.createElement("button");
+            closeBtn.textContent = "Fermer";
+            closeBtn.addEventListener("click", () => this.close());
+            this.modal.appendChild(closeBtn);
+        }
+        
 
         document.body.appendChild(this.modal);
-         // bloque le scroll de fond
     }
     /** Supprime le modal & l'overlay */
     close() {
         if (this.modal) this.modal.remove();
         if (this.overlay) this.overlay.remove();
-        document.body.style.overflow = ""; // réactive scroll
+        document.body.classList.remove("no-scroll");
     }
 }
 
