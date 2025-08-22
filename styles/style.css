@@ -7,6 +7,11 @@ body {
     column-gap: 16px;
 }
 
+.no-scroll {
+  overflow: hidden;
+  height: 100vh; 
+}
+
 header {
     grid-column: 2/3;
 }
@@ -174,7 +179,6 @@ button {
     transform: translate(-50%, -50%); 
     max-width: 800px;
     width: 778px;
-    height: 939px;
     max-height: 90%;
     overflow-y: auto; 
     z-index: 1000; 
@@ -187,11 +191,10 @@ button {
 .header-movie{
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    align-items: start;
     margin-bottom: 1rem;
 }
 .header-movie img {
+    justify-self: right;
     width: 227px;
     height: 334px;
 }
