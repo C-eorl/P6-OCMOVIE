@@ -81,6 +81,9 @@
         cursor: pointer;
         text-align: center;
     }
+    .category .voir-plus:hover {
+        background-color: #dc0e0e;
+    }
 
     /* Modal **/
     .modal-window::-webkit-scrollbar {
@@ -116,6 +119,11 @@
         top: 25px;
         right: 25px;
         cursor: pointer;
+    }
+    .btn-closecross:hover{
+        border-radius: 10px;
+        border: none;
+        background-color: #f9d4d4;
     }
     /* Description sur 2ème ligne */
     .modal-window > p:first-of-type {
