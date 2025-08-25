@@ -96,6 +96,7 @@
         margin-top: 16px;
     }
     /* ==================== Bouton Voir plus ==================== */
+    
     .category .voir-plus {
         display: block;
         margin: 20px auto;
@@ -110,5 +111,10 @@
         color: #fff;
         cursor: pointer;
         border: none;
+    }
+
+    /* ==================== Modal ========================== */
+    .modal-window h2 {
+        text-align: left;
     }
 }
