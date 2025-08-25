@@ -58,7 +58,7 @@ h1 {
     font-style: light;
     font-size: 40px;
 }
-button {
+.best-movie button {
     width: 158px;
     height: 64px;
     border-radius: 25px;
@@ -183,20 +183,30 @@ button {
     overflow-y: auto; 
     z-index: 1000; 
     font-family: 'Oswald', sans-serif;
-    display: flex;
-    flex-direction: column;
     padding: 25px;
-    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: auto auto auto auto auto; 
+    gap: 20px;
 }
 .header-movie{
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    margin-bottom: 1rem;
+    grid-column: 1 / span 2; /* texte sur les deux premières colonnes */
+    grid-row: 1;
+    display: flex;
+    flex-direction: column; /* texte à l’intérieur du header */
+    gap: 1rem;
 }
-.header-movie img {
-    justify-self: right;
+
+
+.info-movie {
+    flex: 1;
+}
+.modal-window img:not(.btn-closecross){
+    grid-column: 3; /* image dans 3ème colonne */
+    grid-row: 1;
     width: 227px;
     height: 334px;
+    object-fit: cover;
 }
 .modal-window h1{
     color:#000000;
@@ -236,4 +246,32 @@ button {
     color: #ffffff;
     font-weight: 500;
     font-size: 20px;
+}
+/* 2ème ligne : description */
+.modal-window > p:first-of-type {
+    grid-column: 1 / span 3;
+    grid-row: 2;
+}
+
+/* 3ème ligne : "Avec:" */
+.modal-window h4 {
+    grid-column: 1 / span 3;
+    grid-row: 3;
+}
+
+/* 4ème ligne : acteurs */
+.modal-window h4 + p {
+    grid-column: 1 / span 3;
+    grid-row: 4;
+}
+
+/* 5ème ligne : bouton Fermer */
+.modal-window button.btn-close {
+    grid-column: 2; /* centré sur la 2ème colonne */
+    grid-row: 5;
+    justify-self: center;
+}
+/* bouton cross */
+.btn-closecross {
+    display: none;
 }
