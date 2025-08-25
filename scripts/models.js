@@ -80,9 +80,43 @@ export class Section {
             h2.textContent = this.title;
 
             const select = document.createElement("select");
+            const defaultOption = document.createElement("option");
+            defaultOption.textContent = "Catégories"
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            select.appendChild(defaultOption);
+
+            const categoryMap = {
+                "Action": "Action",
+                "Adult": "Adulte",
+                "Adventure": "Aventure",
+                "Animation": "Animation",
+                "Biography": "Biographie",
+                "Comedy": "Comédie",
+                "Crime": "Policier",
+                "Documentary": "Documentaire",
+                "Drama": "Drame",
+                "Family": "Famille",
+                "Fantasy": "Fantastique",
+                "Film-Noir": "Film noir",
+                "History": "Histoire",
+                "Horror": "Horreur",
+                "Music": "Musique",
+                "Musical": "Comédie musicale",
+                "Mystery": "Mystère",
+                "News": "Actualités",
+                "Reality-TV": "Télé-réalité",
+                "Romance": "Romance",
+                "Sci-Fi": "Science-fiction",
+                "Sport": "Sport",
+                "Thriller": "Thriller",
+                "War": "Guerre",
+                "Western": "Western"
+            }; // mappage anglais/français
             this.categories.forEach(cat => {
                 const option = document.createElement("option");
-                option.textContent = cat;
+                option.textContent = categoryMap[cat];
+                option.value = cat;
                 select.appendChild(option);
             });
 
@@ -259,7 +293,15 @@ export class Modal {
         dateGenre.textContent = `${movie.year || "N/A"} - ${movie.genres || "N/A"}`;
 
         const infoMovie = document.createElement("h2");
-        infoMovie.textContent = `${movie.duration || "N/A"} minutes (${movie.countries || "N/A"})`;
+        let rated
+        switch (movie.rated) {
+            case "Not rated or unkown rating": rated = "N/A"
+            case "G" : rated = "Tous public";
+            case "PG" : rated = "Interdit -10 ans";
+            case "PG-13" : rated = "Interdit -13 ans";
+            case "NC-17" : rated = "Interdit -18 ans";
+        }
+        infoMovie.textContent = `${rated} - ${movie.duration || "N/A"} minutes (${movie.countries || "N/A"})`;
         const imdbScore = document.createElement("h2");
         imdbScore.textContent = `IMDB score: ${movie.imdb_score || "N/A"}/10`;
 
@@ -320,37 +362,5 @@ export class Modal {
         if (this.modal) this.modal.remove();
         if (this.overlay) this.overlay.remove();
         document.body.classList.remove("no-scroll");
-    }
-}
-
-
-
-/** Créez les class Movie grâce à l'url en parametre 
- * retourne une liste de Movies
-*/
-export async function createMovies(url){
-    const data = await getDataMovies(url)
-    const movies = []
-    for (const dataMovie of data) {
-        movies.push(
-            new Movie(
-                dataMovie["url"],
-                dataMovie["title"],
-                dataMovie["image_url"],
-            )
-        );
-    }
-    return movies
-}
-
-export async function getDataMovies(url) {
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data["results"]
-        
-    } catch (error) {
-        console.error("Erreur:", error);
-        return null;
     }
 }
