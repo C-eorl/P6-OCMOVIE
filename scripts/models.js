@@ -278,8 +278,11 @@ export class Modal {
 
         // image
         const img = document.createElement("img");
-        img.src = movie.image_url || "https://placehold.co/300?text=No+Image";
+        img.src = movie.image_url ;
         img.alt = movie.title;
+        img.addEventListener("error", () => {
+            img.src = "https://placehold.co/300?text=No+Image";
+        });
         this.modal.appendChild(img);
 
         // Description
