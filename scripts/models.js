@@ -234,13 +234,14 @@ export class Modal {
         const movie = await this.getdata();
 
         document.body.classList.add("no-scroll");
-        // Création de l'overlay
+
+        // overlay
         this.overlay = document.createElement("div");
         this.overlay.className = "modal-overlay";
         this.overlay.addEventListener("click", () => this.close()); // fermer au clic sur le fond
         document.body.appendChild(this.overlay);
 
-        // Création de la modal
+        // modal
         this.modal = document.createElement("div");
         this.modal.className = "modal-window";
 
@@ -257,11 +258,13 @@ export class Modal {
         const dateGenre = document.createElement("h2");
         dateGenre.textContent = `${movie.year || "N/A"} - ${movie.genres || "N/A"}`;
 
+        const infoMovie = document.createElement("h2");
+        infoMovie.textContent = `${movie.duration || "N/A"} minutes (${movie.countries || "N/A"})`;
         const imdbScore = document.createElement("h2");
         imdbScore.textContent = `IMDB score: ${movie.imdb_score || "N/A"}/10`;
 
         const boxOffice = document.createElement("h2");
-        boxOffice.textContent = `Recettes au box-office: ${movie.box_office || "N/A"}`;
+        boxOffice.textContent = `Recettes au box-office: ${movie.worldwide_gross_income || "N/A"}`;
 
         const realisateurH3 = document.createElement("h3");
         realisateurH3.textContent = "Réalisé par:";
@@ -269,54 +272,46 @@ export class Modal {
         const realisateurP = document.createElement("p");
         realisateurP.textContent = movie.directors || "";
 
+        info.append(title, dateGenre, infoMovie, imdbScore, boxOffice, realisateurH3, realisateurP);
+        header.append(info)
+        this.modal.appendChild(header)
+
+        // image
         const img = document.createElement("img");
         img.src = movie.image_url || "https://placehold.co/300?text=No+Image";
         img.alt = movie.title;
+        this.modal.appendChild(img);
 
         // Description
         const descP = document.createElement("p");
-        descP.textContent = movie.description || "Aucune description disponible.";
+        descP.textContent = movie.long_description || "Aucune description disponible.";
+        this.modal.appendChild(descP);
 
-        // Acteurs
-        let acteursH4;
-        let acteursP;
-        if (movie.actors) {
-            acteursH4 = document.createElement("h4");
-            acteursH4.textContent = "Avec:";
-            acteursP = document.createElement("p");
-            acteursP.textContent = movie.actors.join(", ");
-        }
-
+        // Acteurs 
+        const acteursH4 = document.createElement("h4");
+        acteursH4.textContent = "Avec:";
+        const acteursP = document.createElement("p");
+        acteursP.textContent = `${movie.actors.join(", ") || "N/A"}`;
+        this.modal.append(acteursH4, acteursP)
+        
+        // Bouton Cross
         const btnCloseCross = document.createElement("img")
         btnCloseCross.classList.add("btn-closecross");
         btnCloseCross.src = "img/closecross.svg";   
         btnCloseCross.alt = "Fermer"
+        btnCloseCross.addEventListener("click", () => this.close());
+        this.modal.appendChild(btnCloseCross);
 
-       
-            
-        if (window.innerWidth <= 910) {
-            info.append(title,dateGenre,imdbScore, boxOffice, realisateurH3, realisateurP)
-            header.append(info, btnCloseCross)
-            btnCloseCross.addEventListener("click", () => this.close());
-            this.modal.appendChild(header)
-            this.modal.appendChild(descP)
-            this.modal.appendChild(img)
-            this.modal.append(acteursH4, acteursP)
-        } else {
-            info.append(title, dateGenre, imdbScore, boxOffice, realisateurH3, realisateurP);
-            header.append(info, img);
-            this.modal.appendChild(header);
-            this.modal.appendChild(descP);
-            this.modal.append(acteursH4, acteursP);
-            const closeBtn = document.createElement("button");
-            closeBtn.textContent = "Fermer";
-            closeBtn.addEventListener("click", () => this.close());
-            this.modal.appendChild(closeBtn);
-        }
-        
+        // Bouton Fermer
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "Fermer";
+        closeBtn.classList.add("btn-close");
+        closeBtn.addEventListener("click", () => this.close());
+        this.modal.appendChild(closeBtn);
 
         document.body.appendChild(this.modal);
     }
+
     /** Supprime le modal & l'overlay */
     close() {
         if (this.modal) this.modal.remove();
