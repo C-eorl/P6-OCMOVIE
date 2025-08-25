@@ -1,6 +1,8 @@
 /* ==================== 576px ==================== */
 @media (max-width: 576px) {
     body {
+        margin-left: 64px;
+        margin-right: 64px;
         display: grid;
         grid-template-columns: 1fr minmax(329px, 450px) 1fr; 
         justify-content: center;
@@ -9,6 +11,10 @@
         display: flex;
         justify-content: center;
     }
+    .logo img {
+        height: 130px;
+        width: 182px;
+    }
     
     header h1 {
         display: none; /* supprime "Vidéos à la demande" */
@@ -16,12 +22,12 @@
 
     h2 {
         margin-bottom: 10px;
-        font-size: 28px;
+        font-size: 32px;
         text-align: center;
     }
 
     p {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     select {
