@@ -83,23 +83,70 @@
     }
 
     /* Modal **/
-    .modal-windows {
+    .modal-window::-webkit-scrollbar {
+    display: none;
+    }
+    .modal-window {
+        -ms-overflow-style: none;  /* IE et Edge */
+        scrollbar-width: none;      /* Firefox */
+
 
         max-width: 75%;
         width: 75%;
         max-height: 90%;
         z-index: 1000; 
         font-family: 'Oswald', sans-serif;
+        padding: 25px;
+        display: grid;
+        grid-template-columns: 1fr;      
+        grid-template-rows: auto auto auto auto auto;
+        gap: 15px;
+    }
+    .header-movie {
+        grid-column: 1;
+        grid-row: 1;
         display: flex;
         flex-direction: column;
-        padding: 25px;
+        gap: 0.5rem;
+        position: relative;
     }
-    .modal-window img {
-        justify-content: center;
-        width: 409px;
+    .btn-closecross {
+        display: block;
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        cursor: pointer;
     }
-    .btn-closecross{
-        
-        all: unset;
+    /* Description sur 2ème ligne */
+    .modal-window > p:first-of-type {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    /* Image sur 3ème ligne */
+    .modal-window img:not(.btn-closecross) {
+        grid-column: 1;
+        grid-row: 3;
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        justify-self: center;
+    }
+
+    /* "Avec:" sur 4ème ligne */
+    .modal-window h4 {
+        grid-column: 1;
+        grid-row: 4;
+    }
+
+    /* Acteurs sur 5ème ligne */
+    .modal-window h4 + p {
+        grid-column: 1;
+        grid-row: 5;
+    }
+
+    /* Bouton "Fermer" (desktop) masqué */
+    .btn-close {
+        display: none;
     }
 }
