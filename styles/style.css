@@ -26,7 +26,7 @@ select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: white url('img/arrow-select.svg') no-repeat right 18px center;
+    background-color: #fff;
     background-size: 50px 100px;
     border: #000000 1px solid;
     padding: 16px;
@@ -35,6 +35,9 @@ select {
     width: 404px;
     height: 79px;
     cursor: pointer;
+}
+select::{
+    background-color: #2d2c2c;
 }
 .logo {
     padding: 0px 16px 0px 16px;
