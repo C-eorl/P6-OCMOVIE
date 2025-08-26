@@ -9,7 +9,6 @@ body {
 
 .no-scroll {
   overflow: hidden;
-  height: 100vh; 
 }
 
 header {
@@ -23,9 +22,6 @@ p {
     font-weight: 200;
 }
 select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     background-color: #fff;
     background-size: 50px 100px;
     border: #000000 1px solid;
@@ -61,8 +57,8 @@ h1 {
     font-size: 40px;
 }
 .best-movie button {
-    width: 158px;
-    height: 64px;
+    width: 166px;
+    height: 68px;
     border-radius: 25px;
     border: none;
     padding: 2px 4px 2px 4px;
