@@ -1,4 +1,6 @@
 /** Objet Section "Meilleur film" parametre (Class: Movie) */
+import { createMovies } from "./utils.js";
+
 export class BestSection {
     constructor(movie){
         this.movie = movie
@@ -159,6 +161,7 @@ export class Section {
             const select = section.querySelector("select");
             select.addEventListener("change", async (e) => {
                 const categoryName = e.target.value;
+                console.log(e.target.value)
                 const url = `http://127.0.0.1:8000/api/v1/titles/?genre=${categoryName}&sort_by=-imdb_score&page_size=6`;
                 const newMovies = await createMovies(url);
 
