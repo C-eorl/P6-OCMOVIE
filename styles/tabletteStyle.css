@@ -56,7 +56,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* 2 films par ligne */
         grid-auto-rows: auto;
-        gap: 16px;
+        gap: 32px;
         max-height: calc(2 * 319px + 16px); /* 2 lignes + gap */
         overflow: hidden;
     }

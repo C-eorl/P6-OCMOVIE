@@ -56,7 +56,6 @@
         width: 298px;
         height: 241px;
         object-fit: cover;
-        /* pas de déformation*/
     }
 
     .best-movie .details {
@@ -82,7 +81,7 @@
         display: grid;
         grid-template-columns: 1fr; /* 1 film par ligne */
         grid-auto-rows: auto;
-        gap: 16px;
+        gap: 32px;
         max-height: calc(2 * 319px + 16px); /* 2 lignes visibles par défaut */
         overflow: hidden;
     }
@@ -92,15 +91,7 @@
         width: 100%;
         height: 319px;
     }
-    .header-category {
-        display: flex;
-        gap: 0;
-    }
-    .header-category h2 {
-        width: 100%;
-        justify-content: center;
-        margin-top: 16px;
-    }
+    
     /* ==================== Bouton Voir plus ==================== */
     
     .category .voir-plus {
@@ -123,4 +114,13 @@
     .modal-window h2 {
         text-align: left;
     }
-}
+    .header-category {
+        display: flex;
+        gap: 0;
+    }
+    .header-category h2 {
+        width: 100%;
+        justify-content: center;
+        margin-top: 16px;
+    }
+}   
