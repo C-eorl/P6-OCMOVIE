@@ -113,6 +113,7 @@ export class Section {
                 "War": "Guerre",
                 "Western": "Western"
             }; // mappage anglais/français
+
             this.categories.forEach(cat => {
                 const option = document.createElement("option");
                 option.textContent = categoryMap[cat];
@@ -153,7 +154,7 @@ export class Section {
 
         section.appendChild(voirPlusBtn);
 
-        // Mettre à jour le carousel si le select change (si présent)
+        
         if (this.categories && this.categories.length > 0) {
             const select = section.querySelector("select");
             select.addEventListener("change", async (e) => {
@@ -161,7 +162,6 @@ export class Section {
                 const url = `http://127.0.0.1:8000/api/v1/titles/?genre=${categoryName}&sort_by=-imdb_score&page_size=6`;
                 const newMovies = await createMovies(url);
 
-                // Mettre à jour le carousel existant sans remplacer le DOM
                 carouselDOM.innerHTML = "";
                 newMovies.forEach(movie => {
                     const card = new CardMovie(movie);
@@ -279,7 +279,7 @@ export class Modal {
         this.modal = document.createElement("div");
         this.modal.className = "modal-window";
 
-        // Header
+        // header
         const header = document.createElement("div");
         header.className = "header-movie";
 
