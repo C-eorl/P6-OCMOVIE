@@ -20,7 +20,7 @@
         height: 78px;
     }
 
-    /* Section Meilleur film */
+    /* ==================== Section Meilleur film ==================== */
     .best-movie {
         flex-direction: column;
         align-items: center;
@@ -47,7 +47,7 @@
         font-size: 14px;
     }
 
-    /* Sections Autres / Carousels */
+    /* ==================== Autres sections ==================== */
     .header-category {
         display: flex;
         flex-wrap: wrap; 
@@ -66,7 +66,7 @@
         height: 319px;
     }
 
-    /* Bouton Voir plus */
+    /* ==================== Bouton Voir plus ==================== */
     .category .voir-plus {
         display: block;
         margin: 30px auto;
@@ -85,9 +85,9 @@
         background-color: #dc0e0e;
     }
 
-    /* Modal **/
+    /* ==================== Modal ========================== */
     .modal-window::-webkit-scrollbar {
-    display: none;
+        display: none;
     }
     .modal-window {
         -ms-overflow-style: none;  /* IE et Edge */
@@ -113,6 +113,31 @@
         gap: 0.5rem;
         position: relative;
     }
+    
+    .modal-window > p:first-of-type {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .modal-window img:not(.btn-closecross) {
+        grid-column: 1;
+        grid-row: 3;
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        justify-self: center;
+    }
+    .modal-window h4 {
+        grid-column: 1;
+        grid-row: 4;
+    }
+    .modal-window h4 + p {
+        grid-column: 1;
+        grid-row: 5;
+    }
+    .btn-close {
+        display: none;
+    }
+    /* ==================== Bouton Croix ==================== */
     .btn-closecross {
         display: block;
         position: absolute;
@@ -124,37 +149,5 @@
         border-radius: 10px;
         border: none;
         background-color: #f9d4d4;
-    }
-    /* Description sur 2ème ligne */
-    .modal-window > p:first-of-type {
-        grid-column: 1;
-        grid-row: 2;
-    }
-
-    /* Image sur 3ème ligne */
-    .modal-window img:not(.btn-closecross) {
-        grid-column: 1;
-        grid-row: 3;
-        width: 100%;
-        max-width: 400px;
-        height: auto;
-        justify-self: center;
-    }
-
-    /* "Avec:" sur 4ème ligne */
-    .modal-window h4 {
-        grid-column: 1;
-        grid-row: 4;
-    }
-
-    /* Acteurs sur 5ème ligne */
-    .modal-window h4 + p {
-        grid-column: 1;
-        grid-row: 5;
-    }
-
-    /* Bouton "Fermer" (desktop) masqué */
-    .btn-close {
-        display: none;
     }
 }

@@ -1,6 +1,6 @@
 import {Movie} from "./models.js";
 
-/** Créez de faux film pour initialisation des Section Autre */
+/** Créez de faux film pour initialisation des Sections Autre */
 export function getEmptyMovies(count = 6) {
     const emptyMovies = [];
     for (let i = 0; i < count; i++) {
@@ -40,6 +40,7 @@ export async function createMovies(url){
                 dataMovie["url"],
                 dataMovie["title"],
                 dataMovie["image_url"],
+                dataMovie["description"]
             )
         );
     }

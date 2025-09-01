@@ -31,17 +31,14 @@ async function displaySections() {
     const données = [
         {
             "title" : "Films les mieux notés",
-            "id" : "best-movies",
             "movies" : await createMovies("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&page_size=6"),
         },
         {
             "title" : "Drama",
-            "id" : "Drama",
             "movies" : await createMovies("http://127.0.0.1:8000/api/v1/titles/?genre=Drama&sort_by=-imdb_score&page_size=6"),
         },
         {
             "title" : "Fantastique",
-            "id" : "Fantasy",
             "movies" : await createMovies("http://127.0.0.1:8000/api/v1/titles/?genre=Fantasy&sort_by=-imdb_score&page_size=6"), 
         }  
     ]
@@ -52,7 +49,6 @@ async function displaySections() {
     const categories = await getCategories()
     const sectionAutres = new Section(
         "Autres:",
-        "Autre1",
         getEmptyMovies(),
         categories
     );
@@ -64,7 +60,6 @@ async function displaySections() {
     données.forEach(donnée => {
         const section = new Section(
             donnée.title,
-            donnée.id,
             donnée.movies
         )
         main.appendChild(section.constructorDOM())

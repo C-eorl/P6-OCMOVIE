@@ -17,7 +17,7 @@
     }
     
     header h1 {
-        display: none; /* supprime "Vidéos à la demande" */
+        display: none; 
     }
 
     h2 {

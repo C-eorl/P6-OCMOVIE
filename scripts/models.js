@@ -59,18 +59,16 @@ export class BestSection {
 
 /** Objet général Section parametre: (title: String, id: Int, movies: List(Class:Movie), categories: null || List(String)) */
 export class Section {
-    constructor(title, id, movies, categories = null) {
-        this.id = id;
+    constructor(title, movies, categories = null) {
         this.title = title;
         this.className = "category";
         this.movies = movies;       // Liste d'objets Movie
-        this.categories = categories; // Liste de {id, name} ou null
+        this.categories = categories; 
     }
 
     /** Construit la section puis la retourne */
     constructorDOM() {
         const section = document.createElement("section");
-        section.id = this.id;
         section.className = this.className;
 
         // Header
@@ -87,6 +85,9 @@ export class Section {
             defaultOption.disabled = true;
             defaultOption.selected = true;
             select.appendChild(defaultOption);
+
+            // option non optimiser car non dynamique
+            // mappage anglais/français
 
             const categoryMap = {
                 "Action": "Action",
@@ -114,7 +115,7 @@ export class Section {
                 "Thriller": "Thriller",
                 "War": "Guerre",
                 "Western": "Western"
-            }; // mappage anglais/français
+            };
 
             this.categories.forEach(cat => {
                 const option = document.createElement("option");
@@ -131,7 +132,7 @@ export class Section {
             section.appendChild(h2);
         }
 
-        // Carousel initial
+        // Carousel 
         const carouselDOM = new Carousel(this.movies.length, this.movies).constructorDOM();
         carouselDOM.classList.add("carousel");
         section.appendChild(carouselDOM);
@@ -161,7 +162,6 @@ export class Section {
             const select = section.querySelector("select");
             select.addEventListener("change", async (e) => {
                 const categoryName = e.target.value;
-                console.log(e.target.value)
                 const url = `http://127.0.0.1:8000/api/v1/titles/?genre=${categoryName}&sort_by=-imdb_score&page_size=6`;
                 const newMovies = await createMovies(url);
 
