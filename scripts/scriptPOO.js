@@ -28,10 +28,10 @@ async function sectionBestMovie(){
 
 /* ====================  Fonction affichant les sections  =============================== */
 async function displaySections() {
-    const données = [
+    const dataSection = [
         {
             "title" : "Films les mieux notés",
-            "movies" : await createMovies("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&page_size=6"),
+            "movies" : await createMovies("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score&page_size=7"),
         },
         {
             "title" : "Drama",
@@ -43,9 +43,11 @@ async function displaySections() {
         }  
     ]
 
+    // suppression du 1er élément (movie) pour la section "meilleurs films" cause doublon
+    dataSection[0].movies.splice(0, 1)
+    
     const main = document.querySelector("main");
     
-
     const categories = await getCategories()
     const sectionAutres = new Section(
         "Autres:",
@@ -53,11 +55,10 @@ async function displaySections() {
         categories
     );
     
-
     const bestSection = await sectionBestMovie()
     main.appendChild(bestSection.constructorDOM())
 
-    données.forEach(donnée => {
+    dataSection.forEach(donnée => {
         const section = new Section(
             donnée.title,
             donnée.movies
