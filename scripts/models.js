@@ -145,7 +145,7 @@ export class Section {
 
         voirPlusBtn.addEventListener("click", () => {
             if (!expanded) {
-                carouselDOM.style.maxHeight = "none"; // tout afficher
+                carouselDOM.style.maxHeight = "none"; 
                 voirPlusBtn.textContent = "Voir moins";
                 expanded = true;
             } else {
@@ -157,7 +157,7 @@ export class Section {
 
         section.appendChild(voirPlusBtn);
 
-        
+        // Select: récupère les films de la catégorie sélectionnée
         if (this.categories && this.categories.length > 0) {
             const select = section.querySelector("select");
             select.addEventListener("change", async (e) => {
@@ -296,6 +296,7 @@ export class Modal {
         dateGenre.textContent = `${movie.year || "N/A"} - ${movie.genres || "N/A"}`;
 
         const infoMovie = document.createElement("h2");
+
         let rated
         switch (movie.rated) {
             case "Not rated or unkown rating": rated = "N/A"
@@ -304,6 +305,7 @@ export class Modal {
             case "PG-13" : rated = "Interdit -13 ans";
             case "NC-17" : rated = "Interdit -18 ans";
         }
+        
         infoMovie.textContent = `${rated} - ${movie.duration || "N/A"} minutes (${movie.countries || "N/A"})`;
         const imdbScore = document.createElement("h2");
         imdbScore.textContent = `IMDB score: ${movie.imdb_score || "N/A"}/10`;
