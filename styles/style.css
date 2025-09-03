@@ -202,6 +202,7 @@ h1 {
     
 }
 .header-movie{
+    margin-bottom: 16px;
     grid-column: 1 / span 2; 
     grid-row: 1;
     display: flex;
