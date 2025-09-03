@@ -169,6 +169,7 @@ export class Section {
                 newMovies.forEach(movie => {
                     const card = new CardMovie(movie);
                     carouselDOM.appendChild(card.constructorDOM());
+
                 });
             });
         }
@@ -299,11 +300,24 @@ export class Modal {
 
         let rated
         switch (movie.rated) {
-            case "Not rated or unkown rating": rated = "N/A"
-            case "G" : rated = "Tous public";
-            case "PG" : rated = "Interdit -10 ans";
-            case "PG-13" : rated = "Interdit -13 ans";
-            case "NC-17" : rated = "Interdit -18 ans";
+            case "Not rated or unkown rating": 
+                rated = "N/A";
+                break;
+            case "G" : 
+                rated = "Tous public";
+                break;
+            case "PG" : 
+                rated = "Interdit -10 ans";
+                break;
+            case "PG-13" : 
+                rated = "Interdit -13 ans";
+                break;
+            case "NC-17" : 
+                rated = "Interdit -18 ans";
+                break;
+             default:
+                rated = "N/A";
+                break;
         }
         
         infoMovie.textContent = `${rated} - ${movie.duration || "N/A"} minutes (${movie.countries || "N/A"})`;
