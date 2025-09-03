@@ -103,7 +103,6 @@
         display: grid;
         grid-template-columns: 1fr;      
         grid-template-rows: auto auto auto auto auto;
-        gap: 15px;
     }
     .header-movie {
         grid-column: 1;
@@ -125,6 +124,7 @@
         max-width: 400px;
         height: auto;
         justify-self: center;
+        margin: 32px 0px;
     }
     .modal-window h4 {
         grid-column: 1;
