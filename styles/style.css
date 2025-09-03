@@ -220,6 +220,7 @@ h1 {
     width: 227px;
     height: 334px;
     object-fit: cover;
+    justify-self: end;
 }
 .modal-window h1{
     color:#000000;
